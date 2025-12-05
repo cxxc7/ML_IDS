@@ -1,120 +1,131 @@
-```
-# **Machine Learning–Based Intrusion Detection System (ML-IDS)**
+---
 
-A complete project implementing a Machine Learning Intrusion Detection System using multiple models—Random Forest, Logistic Regression, SVM, and ANN—built on the CIC-IDS (balanced) dataset.
-The system performs **binary classification** (Benign vs Attack) and **multiclass attack-type detection**, with a **4-model ensemble** for robust decision-making.
+# 🚨 Machine Learning–Based Intrusion Detection System (ML-IDS)
+
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
+![ML](https://img.shields.io/badge/ML-Scikit--Learn%20%7C%20TensorFlow-orange)
+
+A complete **Machine Learning Intrusion Detection System (IDS)** built on the **CIC-IDS balanced dataset**, supporting both **binary (Benign/Attack)** and **multiclass attack-type** detection.
+Implements **Random Forest, Logistic Regression, SVM (RBF), and ANN** with a **4-model ensemble** providing highly robust predictions.
 
 ---
 
-## 🚀 **Project Features**
+# 📚 Table of Contents
 
-### ✔️ Multi-Model Intrusion Detection
+* [Features](#-features)
+* [Project Structure](#-project-structure)
+* [Models Used](#-models-used)
+* [Ensemble Logic](#-ensemble-logic)
+* [Performance](#-performance)
+* [How to Run](#️-how-to-run)
+* [Dataset Info](#-dataset-information)
+* [References](#-references)
+* [Conclusion](#-conclusion)
 
-Implements four ML algorithms:
+---
+
+# 🚀 Features
+
+### ✔ Multi-Model Intrusion Detection
+
+Includes four ML algorithms:
 
 * **Random Forest (RF)**
 * **Logistic Regression (LR)**
-* **Support Vector Machine (SVM – RBF)**
+* **SVM (RBF Kernel)**
 * **Artificial Neural Network (ANN)**
 
-### ✔️ Ensemble Voting System
+### ✔ Ensemble Voting System
 
-Combines outputs from all four models for improved accuracy and stability.
+Votes across all 4 models for improved accuracy and stability.
 
-### ✔️ High Detection Accuracy
+### ✔ High Detection Accuracy
 
 * **98.59% Binary Accuracy (RF)**
 * **95.30% Multiclass Accuracy (RF)**
 
-### ✔️ Live Detection Demo
+### ✔ Live JSON Input Detection Demo
 
-Accepts a JSON/network-flow record as input → predicts:
+Predicts:
 
 * Benign / Attack
 * Attack subtype
-* Consolidated **attack family probabilities**
+* Attack-family probability distribution
 
-### ✔️ Complete Preprocessing Pipeline
+### ✔ Full Preprocessing Pipeline
 
-Handles NaN, inf, outliers, scaling, and feature cleaning.
-Helps produce **clean and robust ML-ready features**.
+Handles NaN, inf, outliers, scaling, and column cleanup.
 
 ---
 
-## 📁 **Project Structure**
+# 📁 Project Structure
 
 ```
-
-├── ML_IDS.ipynb        # Full project notebook (training, evaluation, demo)
-├── balanceddata.csv    # Cleaned and balanced CIC-IDS dataset
+├── ML_IDS.ipynb        # All training, evaluation & demo code
+├── balanceddata.csv    # Cleaned & balanced CIC-IDS dataset
 ├── model_outputs/      # Confusion matrices, ROC curves, feature importance plots
-├── README.md           # Project documentation
-└── report/             # PDF project report (isproj.pdf, ML_IDS.pdf)
-
+├── README.md           # This file
+└── report/             # Project reports (isproj.pdf, ML_IDS.pdf)
 ```
 
 ---
 
-## 🧠 **Models Used**
+# 🧠 Models Used
 
 ### **1. Random Forest (Best Performer)**
 
-* Handles high-dimensional data
+* Excellent handling of tabular, high-dimensional data
 * Robust to noise/outliers
 * Captures nonlinear attack patterns
 * Provides feature importance
-* Highest binary & multiclass accuracy
 
 ### **2. Logistic Regression**
 
-* Fast, interpretable, linear baseline
-* Performs well on linearly separable classes
+* Fast & interpretable baseline
+* Good performance on linearly separable data
 
 ### **3. SVM (RBF Kernel)**
 
-* Excellent margin-based classifier
-* Strong binary performance
-* Captures nonlinear attack boundaries
+* Strong margin-based classifier
+* Captures nonlinear decision boundaries
 
 ### **4. Artificial Neural Network (ANN)**
 
 * Learns complex flow patterns
-* Supports binary & multiclass outputs
-* Used for attack-family probability distribution
+* Binary + multiclass support
+* Generates attack-family probability distributions
 
 ---
 
-## 🧩 **Ensemble Logic**
+# 🧩 Ensemble Logic
 
-The ensemble system aggregates predictions from all four models:
+### **Main Decision Policy**
 
-```
-
-If at least 2 of 4 models predict "Attack" → Final = ATTACK
+```text
+If 2 or more models predict “Attack” → Final = ATTACK  
 Else → Final = BENIGN
-
 ```
 
-Optional **conservative mode**:
+### **Conservative Mode**
 
-```
-
+```text
 If any model outputs P(Attack) ≥ 0.9 → Final = ATTACK
-
 ```
 
-Multiclass ANN predictions are grouped into **attack families**:
+### **Attack-Type Grouping (ANN)**
 
-* DoS, DDoS
+* DoS / DDoS
 * PortScan
 * Botnet
-* Brute Force (FTP/SSh Patator)
-* Web Attacks (XSS, SQLi, Brute Force)
+* Brute Force (FTP/SSH Patator)
+* Web Attacks (XSS, SQLi, BF)
 * Infiltration
 
 ---
 
-## 📊 **Model Comparison**
+# 📊 Performance
 
 | Model               | Binary Accuracy | Multiclass Accuracy |
 | ------------------- | --------------- | ------------------- |
@@ -123,101 +134,103 @@ Multiclass ANN predictions are grouped into **attack families**:
 | SVM (RBF)           | 0.9671          | 0.8498              |
 | ANN                 | 0.9531          | 0.8545              |
 
-The Random Forest model performed best due to:
+**Why RF performs best:**
 
-* Strong handling of noisy/tabular data
-* Non-linear pattern detection
-* Natural resistance to overfitting
-* Superior feature importance behaviour
+* Nonlinear modeling strengths
+* Noise tolerance
+* Reduced overfitting risk
+* Strong feature importance behavior
 
 ---
 
-## ▶️ **How to Run**
+# ▶️ How to Run
 
-### **1. Install Dependencies**
+## 1. Install Dependencies
 
-```
-
+```bash
 pip install numpy pandas scikit-learn tensorflow matplotlib seaborn
-
 ```
 
-### **2. Open Notebook**
+## 2. Open the Notebook
 
-```
-
+```bash
 jupyter notebook ML_IDS.ipynb
-
 ```
 
-### **3. Run All Cells**
+## 3. Run All Cells
 
 This will:
 
-* Preprocess dataset
+* Preprocess data
 * Train all models
-* Evaluate performance
-* Generate confusion matrices, ROC curves, and graphs
-* Enable the **live demo prediction function**
+* Evaluate accuracy
+* Generate graphs (ROC, confusion matrices, importance plots)
+* Enable **live JSON prediction**
 
-### **4. Use Live Prediction Demo**
+## 4. Example: Live Prediction Demo
 
-```
-
+```python
 sample_output = run_live_demo_json({
-"Destination Port": 80,
-" Flow Duration": 20000,
-...
+    "Destination Port": 80,
+    " Flow Duration": 20000,
+    ...
 })
-
 ```
 
-Outputs include:
+Outputs:
 
-* Prediction per model
-* Final ensemble decision
-* Attack family probabilities
+* Per-model prediction
+* Final ensemble result
+* Attack-family probabilities
 
 ---
 
-## 📘 **Dataset Information**
+# 📘 Dataset Information
 
-**balanceddata.csv** is derived from the **CIC-IDS-2017/CSE-CIC-IDS-2018** datasets and contains:
+**balanceddata.csv** is derived from **CIC-IDS-2017** and **CSE-CIC-IDS-2018** datasets.
 
-* 79 network-flow features
-* Benign + multiple attack types
-* Balanced distribution for ML training
+Contains:
 
-Features include:
+* **79 flow-based features**
+* Balanced benign/attack classes
+* Attack types include DoS, DDoS, PortScan, Web Attacks, Botnet, Infiltration, Brute Force, etc.
 
-* Packet lengths
+Feature groups include:
+
+* Packet length statistics
 * Flow durations
-* IAT values
-* Header lengths
-* TCP flag counts
+* IAT (Inter-Arrival Time) stats
+* Header/TCP flag metrics
 * Subflow stats
 
 ---
 
-## 📚 **References**
+# 📚 References
 
-1. I. Sharafaldin et al., CIC-IDS Dataset, 2018.
-2. Deep Learning for IDS, IEEE Access, 2019.
-3. Random Forest IDS – Sensors Journal, 2020.
-4. Comparative ML Study for IDS, ICCCS, 2013.
-5. Flow-based Traffic Analysis – Computers & Security, 2019.
-6. DeepDefense – IEEE INFOCOM, 2017.
-7. Splunk SIEM Fundamentals, 2021.
-8. IBM Machine Learning for Cybersecurity, 2020.
-9. ML Algorithms for Flow-IDS, JIS, 2015.
-10. A Deep Learning IDS Model, IEEE TETCI, 2018.
+(Shortened & standardized for GitHub)
 
----
-
-## 🏁 **Conclusion**
-
-This project proves that **Machine Learning is extremely effective for modern network intrusion detection**, outperforming traditional signature-based methods by learning behavioural patterns of attacks.
-Using RF + LR + SVM + ANN + Ensemble voting, the system provides high accuracy, strong robustness, and real-time detection capability.
+1. Sharafaldin et al., *CIC-IDS-2017 Dataset*, 2018
+2. IEEE Access, *Deep Learning for IDS*, 2019
+3. Sensors Journal, *Random Forest for IDS*, 2020
+4. ICCCS, *Comparative ML Study for IDS*, 2013
+5. Computers & Security, *Flow-Based Traffic Analysis*, 2019
+6. INFOCOM, *DeepDefense*, 2017
+7. Splunk SIEM Fundamentals, 2021
+8. IBM ML for Cybersecurity, 2020
+9. JIS, *ML Algorithms for Flow IDS*, 2015
+10. IEEE TETCI, *Deep Learning IDS*, 2018
 
 ---
-```
+
+# 🏁 Conclusion
+
+This project shows that **Machine Learning is highly effective for modern network intrusion detection**, outperforming traditional signature-based systems by learning behavioral patterns in network flows.
+Using **RF + LR + SVM + ANN + Ensemble**, the system achieves:
+
+* High accuracy
+* Strong robustness
+* Real-time detection capability
+
+Making it suitable for production-grade IDS research and deployment.
+
+---
