@@ -1,5 +1,3 @@
----
-
 # 🚨 Machine Learning–Based Intrusion Detection System (ML-IDS)
 
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
@@ -232,5 +230,3 @@ Using **RF + LR + SVM + ANN + Ensemble**, the system achieves:
 * Real-time detection capability
 
 Making it suitable for production-grade IDS research and deployment.
-
----
